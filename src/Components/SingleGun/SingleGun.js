@@ -1,8 +1,10 @@
 import React from 'react';
+import { useState } from 'react';
+import Modal from '../Modal/Modal';
 
 const SingleGun = (props) => {
+    const [modalData, setModalData] = useState({})
     const { gun, countIncrease } = props;
-    console.log(gun)
     const { id, name, img, bullet, capacity, action, price, category } = gun;
     return (
         <div>
@@ -11,20 +13,22 @@ const SingleGun = (props) => {
                 <div className="card-body">
                     <h2 className="card-title">
                         {name}
-                        <div className="badge badge-secondary">NEW</div>
+                        <div className="badge badge-secondary">{price}/-</div>
                     </h2>
-                    <p>If a dog chews shoes whose shoes does he choose?</p>
                     <div className="card-actions">
-                        <div className="badge badge-outline">{action}</div>
-                        <div className="badge badge-outline">{bullet}</div>
+                        <div className="badge badge-outline">Action : {action}</div>
+                        <div className="badge badge-outline">Bullet : {bullet}</div>
+                        <div className="badge badge-outline">Capacity : {capacity}</div>
                     </div>
                     <div className='card-actions mt-4'>
                         <button onClick={() => countIncrease()} className="btn btn-sm btn-primary mr-2">Add to card</button>
-                        <button className="btn btn-sm btn-secondary">Details</button>
+                        <label onClick={() => setModalData(gun)} htmlFor="my-modal-3" className="btn modal-button btn btn-sm btn-secondary">Details</label>
+
                     </div>
                 </div>
             </div>
-        </div>
+            {modalData && (<Modal data={modalData} setModalData={setModalData}></Modal>)}
+        </div >
     );
 };
 
